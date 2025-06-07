@@ -1,9 +1,6 @@
-from PIL import Image, ImageDraw, ImageFont, ImageOps, ImageChops
+from PIL import Image, ImageDraw, ImageFont, ImageChops
 import os
 import math
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.patches import Circle
 
 ALFABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!%()+,-;_.'"
 
