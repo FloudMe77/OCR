@@ -1,5 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont, ImageChops
 import os, math, random
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
 
 ALFABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!%()+,-;_.'"
 
@@ -21,11 +23,8 @@ def add_margin(image, margin = 100):
     new_image = Image.new(image.mode, (new_width, new_height), 255)
     new_image.paste(image, (margin, margin))
     return new_image
+
 def rotate_text(image, angle):
-    """
-    Obraca obraz o zadany kąt w stopniach.
-    Zachowuje cały tekst w obrębie obrazu przez odpowiednie powiększenie.
-    """
     # Oblicz nowy rozmiar obrazu po obrocie
     angle_rad = math.radians(angle)
     w, h = image.size
@@ -47,12 +46,9 @@ def rotate_text(image, angle):
     
     return rotated
 
-import numpy as np
-from PIL import Image, ImageDraw, ImageFont
-import random
-import os
 
-def create_font_text(text, name, font_name, rotate, font_size=66, output_dir="./text_images", blur=False, noise_level=50):
+
+def create_font_text(text, name, font_name, rotate, font_size=64, output_dir="./text_images", blur=False, noise_level=50):
     font_path = f"fonts/{font_name}.ttf"  
     image = Image.new("L", (2**12, 2**12), color=255)
     draw = ImageDraw.Draw(image)
@@ -71,7 +67,7 @@ def create_font_text(text, name, font_name, rotate, font_size=66, output_dir="./
         y += line_height * 1.2  # odstęp między liniami
 
     if rotate:
-        image = rotate_text(image, -random.randint(15, 35))
+        image = rotate_text(image, -random.randint(5, 25))
 
     # Dodanie minimalnego zaszumienia
     image = add_margin(crop_all(image))
@@ -100,15 +96,15 @@ def main():
                 "Ipsum passages, and more recently with desktop publishing\n" \
                 "software like Aldus PageMaker including versions of Lorem Ipsum!"
     
-    # create_font_text(text, "text1", "arial", rotate = False)
-    # create_font_text(text, "text1", "latin_modern_roman", rotate = False)
-    # create_font_text(text, "text1", "times_new_roman", rotate = False)
-    # create_font_text(text, "text1", "tahoma", rotate = False)
+    create_font_text(text, "text1", "arial", rotate = False)
+    create_font_text(text, "text1", "latin_modern_roman", rotate = False)
+    create_font_text(text, "text1", "times_new_roman", rotate = False)
+    create_font_text(text, "text1", "tahoma", rotate = False)
 
-    # create_font_text(text, "text2", "arial", rotate = True)
-    # create_font_text(text, "text2", "latin_modern_roman", rotate = True)
-    # create_font_text(text, "text2", "times_new_roman", rotate = True)
-    # create_font_text(text, "text2", "tahoma", rotate = True)
+    create_font_text(text, "text2", "arial", rotate = True)
+    create_font_text(text, "text2", "latin_modern_roman", rotate = True)
+    create_font_text(text, "text2", "times_new_roman", rotate = True)
+    create_font_text(text, "text2", "tahoma", rotate = True)
 
     text2 = "The quick brown fox jumps over the lazy dog. \n" \
                 "Sphinx of black quartz, judge my vow \n" \
@@ -118,7 +114,7 @@ def main():
     create_font_text(text2, "text3", "arial", rotate = True, blur=True)
     create_font_text(text2, "text3", "latin_modern_roman", rotate = True, blur=True)
     create_font_text(text2, "text3", "times_new_roman", rotate = True, blur=True)
-    create_font_text(text2, "text3", "tahoma", rotate = True, blur=True, blur=True)
+    create_font_text(text2, "text3", "tahoma", rotate = True, blur=True)
 
 
 
